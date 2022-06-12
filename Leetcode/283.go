@@ -67,7 +67,7 @@ func main() {
 	nums := []int{0, 1, 0, 3, 12}
 	moveZeros(nums)
 	fmt.Println(nums)
-	nums1 := []int{0}
+	nums1 := []int{4, 2, 4, 0, 0, 3, 0, 5, 1, 0}
 	moveZeros(nums1)
 	fmt.Println(nums1)
 }
