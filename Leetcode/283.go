@@ -34,7 +34,7 @@ func moveZeros(nums []int) {
 	s, f := 0, 0
 	// s finds nums' val is 0; f finds nums' val is not 0
 	// f fast so can keep all previous are not 0
-	// 不能以sp为首先判断
+	// while条件是fp则不能以sp为首先判断
 	for f < n {
 		if nums[f] != 0 {
 			if nums[s] == 0 {
