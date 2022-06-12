@@ -40,3 +40,4 @@ def checkInclusion(self, s1: str, s2: str) -> bool:
                 return True
         fp += 1
     return False
+# 构造字母table更快
