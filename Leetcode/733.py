@@ -23,8 +23,12 @@ Example 1:
 
 Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, newColor = 2
 Output: [[2,2,2],[2,2,0],[2,0,1]]
-Explanation: From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), all pixels connected by a path of the same color as the starting pixel (i.e., the blue pixels) are colored with the new color.
-Note the bottom corner is not colored 2, because it is not 4-directionally connected to the starting pixel.
+Explanation: From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), 
+all pixels connected by a path of the same color as the starting pixel 
+(i.e., the blue pixels) are colored with the new color.
+Note the bottom corner is not colored 2, because it is not 4-directionally 
+connected to the starting pixel.
+
 Example 2:
 
 Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, newColor = 2
@@ -62,7 +66,10 @@ def floodFill(image, sr, sc, newColor):
         if j-1>=0 and image[i][j-1] == c:
             image[i][j-1] = nc
             DFS(image, i, j-1, nc, c)
-    
+    """
+    here set painting color to -1, because newColor>0, 
+    then after paint reset all painted block to newColor
+    """
     DFS(image, sr, sc, -1, image[sr][sc])
     image[sr][sc] = -1
     for i in range(len(image)):
