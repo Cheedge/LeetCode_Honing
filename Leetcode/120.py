@@ -71,6 +71,44 @@ def minimumTotal_memory(triangle: List[List[int]]) -> int:
             return triangle[row][col]
     return dfs(0, 0)
 
+
+def minimumTotal0(triangle):
+    """
+    :type triangle: List[List[int]]
+    :rtype: int
+    """
+    # top -> bottom
+    # 2 + [[3,4],[6,5,7],[4,1,8,3]]
+    #       3 + [[6,5],[4,1,8]]
+    #       4 + [[5,7],[1,8,3]]
+    # bottom -> top
+    # 4 -> 6; 1-> 6 or 5; 8 -> 5 or 7; 3 -> 7
+    # return min total of previous paths
+    def helper(row, col, repo):
+        if (row, col) in repo:
+            return repo[(row, col)]
+        if row-1>0:
+            if col == 0:
+                res = triangle[row][col] + helper(row-1, col, repo)
+            elif col == row:
+                res = triangle[row][col] + helper(row-1, col-1, repo)
+            else:
+                res = triangle[row][col] + min(helper(row-1, col, repo), helper(row-1, col- 1, repo))
+        else:
+            res = triangle[row][col] + triangle[0][0]
+        repo[(row, col)] = res
+        return res
+    
+    repo = dict()
+    ans = 200*10000
+    if len(triangle)==1: return triangle[0][0]
+    for i in range(len(triangle[-1])):
+        tmp = helper(len(triangle)-1, i, repo)
+        # print("+++", tmp)
+        ans = min(ans, tmp)
+    return ans
+
+
 """
                                                   ┏━━━┓
                             ╭─────────────────────┨ 2 ┠─────────────────────╮
