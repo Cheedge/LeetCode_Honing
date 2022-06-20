@@ -72,3 +72,15 @@ def reverseList(self, head: ListNode) -> ListNode:
     head.next.next = head
     head.next = None
     return p
+
+def reverseList2(head):
+    ptr = head
+    if not ptr: return head
+    d = [head]
+    while ptr.next:
+        ptr = ptr.next
+        d.append(ptr)
+    for i in range(len(d)-1, 0, -1):
+        d[i].next = d[i-1]
+    d[0].next = None
+    return ptr
