@@ -64,3 +64,23 @@ def searchRange(nums, target):
         return [-1, -1]
     else:
         return [min(s), max(s)]
+
+from typing import List
+
+def searchRange1(nums: List[int], target: int) -> List[int]:
+    lp, rp = 0, len(nums)-1
+    while lp<=rp:
+        mp = (lp+rp)//2
+        if nums[mp] > target:
+            rp = mp - 1
+        elif nums[mp] < target:
+            lp = mp + 1
+        else:
+            lm = mp - 1
+            rm = mp + 1
+            while lm >= 0 and nums[lm] == target:
+                lm -= 1
+            while rm <= len(nums)-1 and nums[rm] == target:
+                rm += 1
+            return [lm+1, rm-1]
+    return [-1, -1]
