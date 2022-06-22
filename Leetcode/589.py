@@ -4,6 +4,9 @@
 """
 
 # Definition for a Node.
+from typing import List
+
+
 class Node(object):
     def __init__(self, val=None, children=None):
         self.val = val
@@ -28,5 +31,18 @@ class Solution(object):
         
         if not root: return None
         res = [root.val]      
+        DFS(root, res)
+        return res
+
+
+    def preorder1(self, root: 'Node') -> List[int]:
+        if not root: return []
+        res = [root.val]
+        def DFS(root, res):
+            if root.children:
+                for child in root.children:
+                    # print(res, child.val)
+                    res.append(child.val)
+                    DFS(child, res)
         DFS(root, res)
         return res
