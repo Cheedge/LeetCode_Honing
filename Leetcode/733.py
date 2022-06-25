@@ -45,6 +45,7 @@ n == image[i].length
 0 <= sc < n
 """
 from cgi import test
+from collections import deque
 import pytest
 
 
@@ -78,6 +79,39 @@ def floodFill(image, sr, sc, newColor):
                 image[i][j] = newColor
     return image
 
+def floodFill_BFS(image, sr, sc, newColor):
+    m, n = len(image), len(image[0])
+    dq = deque()
+    repo = set()
+    dq.append((sr, sc))
+    repo.add((sr, sc))
+    oldColor = image[sr][sc]
+    image[sr][sc] = newColor
+    while dq:
+        r, c = dq.popleft()
+        if r+1<m:
+            if image[r+1][c]==oldColor and (r+1, c) not in repo:
+                dq.append((r+1, c))
+                repo.add((r+1, c))
+                image[r+1][c]=newColor
+        if r-1>=0:
+            if image[r-1][c]==oldColor and (r-1, c) not in repo:
+                dq.append((r-1, c))
+                repo.add((r-1, c))
+                image[r-1][c]=newColor
+        if c+1<n:
+            if image[r][c+1]==oldColor and (r, c+1) not in repo:
+                dq.append((r, c+1))
+                repo.add((r, c+1))
+                image[r][c+1]=newColor
+        if c-1>=0:
+            if image[r][c-1]==oldColor and (r, c-1) not in repo:
+                dq.append((r, c-1))
+                repo.add((r, c-1))
+                image[r][c-1]=newColor
+    return image
+
+
 test_case = [
     ([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2,[[2,2,2],[2,2,0],[2,0,1]]),
     ([[0,0,0],[0,1,0]], 1, 1, 3, [[0,0,0],[0,3,0]]),
@@ -86,4 +120,8 @@ test_case = [
 
 @pytest.mark.parametrize("image, sr, sc, newColor, expect", test_case)
 def test_floodFill(image, sr, sc, newColor, expect):
+    assert floodFill(image, sr, sc, newColor) == expect
+
+@pytest.mark.parametrize("image, sr, sc, newColor, expect", test_case)
+def test_floodFill_BFS(image, sr, sc, newColor, expect):
     assert floodFill(image, sr, sc, newColor) == expect
