@@ -52,11 +52,14 @@ def rotate(nums: List[int], k: int) -> None:
     reverse(nums, 0, n-1)
     reverse(nums, 0, k0-1)
     reverse(nums, k0, n-1)
-
+    
+"""
 import numpy as np
 
 def rotate_np(nums: List[int], k: int) -> None:
     np.roll(nums, k)
+"""
+
 
 # rotate([1,2,3,4,5,6,7], 3)
 
