@@ -1,6 +1,6 @@
 """
 198. House Robber
-Medium
+Medium(213)
 
 You are a professional robber planning to rob houses along a street. 
 Each house has a certain amount of money stashed, the only constraint stopping you 
@@ -31,6 +31,9 @@ Constraints:
 1 <= nums.length <= 100
 0 <= nums[i] <= 400
 """
+from typing import List
+
+
 def rob(nums):
     """
     :type nums: List[int]
@@ -64,3 +67,23 @@ def rob(nums):
         else:
             return nums[-1]
     return rob_helper(nums, d)
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n==1: return nums[0]
+        dp = [-1 for i in range(n)]
+        def DFS(num, i, dp):
+            if dp[i] != -1:
+                return dp[i]
+            if len(num)==1:
+                dp[i] = num[0]
+                # return num[0]
+            elif len(num)==2:
+                dp[i] = max(num[0], num[1])
+            elif len(num)>2:
+                # print(i, dp, num)
+                dp[i] = max(DFS(num[2:], i+2, dp)+num[0], DFS(num[1:], i+1, dp))
+            return dp[i]
+        
+        return DFS(nums, 0, dp)
