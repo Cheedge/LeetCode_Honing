@@ -79,8 +79,6 @@ def lengthOfLIS_DP(nums: List[int])->int:
             # find largest dp[i], when nums[j]<nums[i](j<i)
             if nums[j]<nums[i]:
                 dp[i] = max(dp[i], dp[j]+1)
-            # else:
-            #     dp[i] = max(dp[i], dp[j])
     return max(dp)
 
 test_case =[
