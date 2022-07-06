@@ -70,6 +70,7 @@ def lengthOfLIS(nums: List[int])->int:
     return recursion(0, -float('inf'), dp)
 
 def lengthOfLIS_DP(nums: List[int])->int:
+    # dp[i] is the longest increase subsequence of nums[0..i] end up with nums[i]
     n = len(nums)
     if n==1: return nums[0]
     dp = [1 for i in range(n)]
