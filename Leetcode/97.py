@@ -64,6 +64,7 @@ def isInterleave_TLE(s1: str, s2: str, s3: str) -> bool:
     # TLE
     def DFS(i, j, memo):
         if i==m and j==n:
+            memo[i][j] = True
             return True
         # use_s1, use_s2 = False, False
         if i<=m-1 and s1[i] == s3[i+j]:
