@@ -35,10 +35,6 @@ Constraints:
 
 1 <= nums.length, k <= 105
 -104 <= nums[i] <= 104
-Accepted
-58,322
-Submissions
-
 """
 from heapq import heappop, heappush
 from typing import List
