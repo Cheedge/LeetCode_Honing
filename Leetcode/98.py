@@ -40,7 +40,29 @@ class TreeNode:
 
 
 class Solution:
-    
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        # DFS
+        """
+        [5,1,4,null,null,3,6] is True
+        [5,4,6,null,null,3,7] is False. (as right branch 3 < left branch 4)
+        [0, -1], and [0, null, 3] are True
+        """
+        memo = dict()
+        left_MAX, right_MIN = -float('inf'), float('inf')
+        def dfs(node, memo, left_MAX, right_MIN):
+            if not node:
+                return True
+            if left_MAX < node.val < right_MIN:
+                memo[node] = dfs(node.left, memo, left_MAX, node.val) and \
+                    dfs(node.right, memo, node.val, right_MIN)
+                return memo[node]
+            else:
+                memo[node]=False
+                return memo[node]
+        return dfs(root, memo, left_MAX, right_MIN)
+
+
+
     def isValidBST1(self, root: Optional[TreeNode]) -> bool:
         # DFS
         """
