@@ -33,7 +33,8 @@ class TreeNode(object):
         self.val = val
         self.left = left
         self.right = right
-from collections import OrderedDict, deque
+from collections import OrderedDict, defaultdict, deque
+from typing import List
 
 
 class Solution(object):
@@ -72,3 +73,25 @@ class Solution(object):
             # print(ans[v])
             # ans[v].sort()
         return ans
+
+    def levelOrder2(root: TreeNode) -> List[List[int]]: 
+        # BFS
+        if not root: return []
+        dq = deque()
+        level = 0
+        dq.append((root, level))
+        repo = defaultdict(list)
+        repo[level].append(root.val)
+        while dq:
+            node, level = dq.popleft()
+            level += 1
+            if node.left:
+                dq.append((node.left, level))
+                repo[level].append(node.left.val)
+            if node.right:
+                dq.append((node.right, level))
+                repo[level].append(node.right.val)
+        res = list()
+        for _, nod in repo.items():
+            res.append(nod)
+        return res
