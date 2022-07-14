@@ -36,24 +36,28 @@ def reverseList1(head):
     :rtype: ListNode
     """
     ptr = head
-    if head == None: return None
-    if head.next == None: return head
+    if head is None:
+        return None
+    if head.next is None:
+        return head
     # move head -> end used for return
     while head.next:
         head = head.next
+
     def _reverse(node):
         if node.next.next:
             _reverse(node.next)
         node.next.next = node
-    
+
     _reverse(ptr)
     ptr.next = None
-    
+
     return head
+
 
 def reverseList_while(head: ListNode) -> ListNode:
     # best answer
-    prev = None#ListNode()
+    prev = None  # ListNode()
     curr = head
     while curr:
         prev, curr.next, curr = curr, prev, curr.next
@@ -63,9 +67,10 @@ def reverseList_while(head: ListNode) -> ListNode:
         # prev = curr
         # curr = tmp
     return prev
-        
-def reverseList(self, head: ListNode) -> ListNode:       
-    #recursively
+
+
+def reverseList(self, head: ListNode) -> ListNode:
+    # recursively
     if head is None or head.next is None:
         return head
     p = self.reverseList(head.next)
@@ -73,14 +78,16 @@ def reverseList(self, head: ListNode) -> ListNode:
     head.next = None
     return p
 
+
 def reverseList2(head):
     ptr = head
-    if not ptr: return head
+    if not ptr:
+        return head
     d = [head]
     while ptr.next:
         ptr = ptr.next
         d.append(ptr)
-    for i in range(len(d)-1, 0, -1):
-        d[i].next = d[i-1]
+    for i in range(len(d) - 1, 0, -1):
+        d[i].next = d[i - 1]
     d[0].next = None
     return ptr
