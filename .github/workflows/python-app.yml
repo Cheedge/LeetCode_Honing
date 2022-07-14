@@ -1,0 +1,42 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+        
+    - name: Setup Poetry
+      uses: Gr1N/setup-poetry@v7
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+    - run: poetry --version
+    - name: Install dependencies(include pre-commit, flake8, black, isort, mypy)
+      run: |
+        poetry install
+    - name: Lint with pre-commit(flake8, black, isort, mypy)
+      run: |
+        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run pre-commit run
+    - name: Test with pytest
+      run: |
+        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run pytest
