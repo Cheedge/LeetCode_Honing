@@ -34,9 +34,12 @@ jobs:
     - name: Install dependencies(include pre-commit, flake8, black, isort, mypy)
       run: |
         poetry install
-    - name: Lint with pre-commit(flake8, black, isort, mypy)
+    - name: Lint with flake8, black, isort, mypy
       run: |
-        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run pre-commit run
+        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run flake8
+        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run black
+        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run isort
+        git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run mypy
     - name: Test with pytest
       run: |
         git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run pytest
