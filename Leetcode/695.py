@@ -2,7 +2,7 @@
 Medium
 
 You are given an m x n binary matrix grid. An island is a group of 1's (representing land)
- connected 4-directionally (horizontal or vertical.) You may assume all four edges of the 
+ connected 4-directionally (horizontal or vertical.) You may assume all four edges of the
  grid are surrounded by water.
 
 The area of an island is the number of cells with a value 1 in the island.
@@ -21,7 +21,7 @@ Example 2:
 
 Input: grid = [[0,0,0,0,0,0,0,0]]
 Output: 0
- 
+
 Constraints:
 
 m == grid.length
@@ -31,13 +31,12 @@ grid[i][j] is either 0 or 1.
 
 """
 from collections import defaultdict
-from typing import List
+from typing import Dict, List, Set, Tuple
 
 import pytest
 
 
 def maxAreaOfIsland(grid: List[List[int]]) -> int:
-
     m, n = len(grid), len(grid[0])
 
     def DFS(i, j, summ):
@@ -96,7 +95,8 @@ def test_maxAreaOfIsland(grid: List[List[int]], expect: int) -> None:
     assert maxAreaOfIsland(grid) == expect
 
 
-#--------------------------------------------------------------
+# --------------------------------------------------------------
+
 
 def maxAreaOfIsland1(grid: List[List[int]]) -> int:
     # 1. loop over all grid find entrace(means 1), check visited memo
@@ -105,24 +105,27 @@ def maxAreaOfIsland1(grid: List[List[int]]) -> int:
     # 3. count number
     def dfs(i, j, res, memo, key):
         # set end condition
-        if i<0 or i>m-1 or j<0 or j>n-1: return
-        if grid[i][j] == 0: return
-        if (i, j) in memo: return
+        if i < 0 or i > m - 1 or j < 0 or j > n - 1:
+            return
+        if grid[i][j] == 0:
+            return
+        if (i, j) in memo:
+            return
         res[key].append((i, j))
         memo.add((i, j))
         # if 0<i<m-1 and 0<j<n-1:
-        dfs(i-1, j, res, memo, key)
-        dfs(i+1, j, res, memo, key)
-        dfs(i, j-1, res, memo, key)
-        dfs(i, j+1, res, memo, key)
+        dfs(i - 1, j, res, memo, key)
+        dfs(i + 1, j, res, memo, key)
+        dfs(i, j - 1, res, memo, key)
+        dfs(i, j + 1, res, memo, key)
 
     m, n = len(grid), len(grid[0])
-    memo = set()
-    res = defaultdict(list)
+    memo: Set[tuple] = set()
+    res: Dict[int, list] = defaultdict(list)
     key = 0
     for i in range(m):
         for j in range(n):
-            if grid[i][j]==1 and (i, j) not in memo:
+            if grid[i][j] == 1 and (i, j) not in memo:
                 key += 1
                 dfs(i, j, res, memo, key)
     cnt = 0
@@ -131,6 +134,7 @@ def maxAreaOfIsland1(grid: List[List[int]]) -> int:
         #     cnt = len(v)
         cnt = max(cnt, len(v))
     return cnt
+
 
 @pytest.mark.parametrize("grid, expect", test_case)
 def test_maxAreaOfIsland1(grid: List[List[int]], expect: int) -> None:
