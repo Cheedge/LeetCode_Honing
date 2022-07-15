@@ -36,6 +36,7 @@ jobs:
         poetry install
     - name: Lint with flake8, black, isort, mypy
       run: |
+        echo $(git diff  --name-only --cached --diff-filter=ACMR)
         git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run flake8
         git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run black
         git diff  --name-only --cached --diff-filter=ACMR | xargs poetry run isort
