@@ -4,7 +4,6 @@ Medium
 
 Given a non-negative integer c, decide whether there're two integers a and b such that a2 + b2 = c.
 
- 
 
 Example 1:
 
@@ -15,7 +14,7 @@ Example 2:
 
 Input: c = 3
 Output: false
- 
+
 
 Constraints:
 
@@ -30,19 +29,19 @@ def judgeSquareSum(self, c: int) -> bool:
     # for i in range(round(math.sqrt(c))+1):
     #     if c-i*i in rec:
     #         return True
-    n = round(math.sqrt(c))+1
+    n = round(math.sqrt(c)) + 1
     for i in range(n):
-    # for i in range(len(rec)):
+        # for i in range(len(rec)):
         t = c - i * i
-        l, r = 0, n-1
+        left, right = 0, n - 1
         # print(f"{t=}")
-        while l<=r:
-            m = (l+r)//2
+        while left <= right:
+            m = (left + right) // 2
             # print(f"{rec[m]=}")
-            if m*m>t:
-                r = m - 1
-            elif m*m<t:
-                l = m + 1
+            if m * m > t:
+                right = m - 1
+            elif m * m < t:
+                left = m + 1
             else:
                 # print(rec[m], m)
                 return True
