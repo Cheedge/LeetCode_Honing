@@ -2,7 +2,7 @@
 232. Implement Queue using Stacks
 Easy
 
-Implement a first in first out (FIFO) queue using only two stacks. 
+Implement a first in first out (FIFO) queue using only two stacks.
 The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
 
 Implement the MyQueue class:
@@ -13,12 +13,12 @@ int peek() Returns the element at the front of the queue.
 boolean empty() Returns true if the queue is empty, false otherwise.
 Notes:
 
-You must use only standard operations of a stack, 
+You must use only standard operations of a stack,
 which means only push to top, peek/pop from top, size, and is empty operations are valid.
-Depending on your language, the stack may not be supported natively. 
+Depending on your language, the stack may not be supported natively.
 You may simulate a stack using a list or deque (double-ended queue)
  as long as you use only a stack's standard operations.
- 
+
 
 Example 1:
 
@@ -36,8 +36,9 @@ myQueue.peek(); // return 1
 myQueue.pop(); // return 1, queue is [2]
 myQueue.empty(); // return false
 """
-class MyQueue(object):
 
+
+class MyQueue(object):
     def __init__(self):
         self.s1 = list()
         self.s2 = list()
@@ -62,14 +63,14 @@ class MyQueue(object):
                 self.s2.pop()
             # print(self.s1, self.s2, "_____")
         return self.s1
-            
 
     def pop(self):
         """
         :rtype: int
         """
         n = len(self.s1)
-        if n==0: return None
+        if n == 0:
+            return None
         front = self.s1.pop()
         return front
         # n = len(self.s1)
@@ -89,17 +90,15 @@ class MyQueue(object):
         :rtype: int
         """
         return self.s1[-1]
-        
 
     def empty(self):
         """
         :rtype: bool
         """
-        if len(self.s1)==0 and len(self.s2)==0:
+        if len(self.s1) == 0 and len(self.s2) == 0:
             return True
         else:
             return False
-        
 
 
 # Your MyQueue object will be instantiated and called as such:
