@@ -10,7 +10,7 @@ The score of nums is the difference between the maximum and minimum elements in 
 
 Return the minimum score of nums after changing the values at each index.
 
- 
+
 
 Example 1:
 
@@ -27,7 +27,7 @@ Example 3:
 Input: nums = [1,3,6], k = 3
 Output: 3
 Explanation: Change nums to be [4, 6, 3]. The score is max(nums) - min(nums) = 6 - 3 = 3.
- 
+
 
 Constraints:
 
@@ -41,17 +41,18 @@ from typing import List
 def smallestRangeII(nums: List[int], k: int) -> int:
     # NO Brute Force!!! make all combinations will cost around O(n!)!!!
     n = len(nums)
-    if n == 1: return 0
+    if n == 1:
+        return 0
     nums.sort()
     # nums[0]+k, ..., nums[i]+k (small to large)
     # nums[i+1]-k, ..., nums[-1]-k (small to large)
     # so largest is either nums[-1]-k or nums[i]+k
     # and smallest is either nums[0]+k or nums[i+1]-k
     # init is important
-    diff = nums[-1]-nums[0]#float('inf')
-    for i in range(n-1):
-        small = min(nums[0]+k, nums[i+1]-k)
-        large = max(nums[-1]-k, nums[i]+k)
+    diff = nums[-1] - nums[0]  # float('inf')
+    for i in range(n - 1):
+        small = min(nums[0] + k, nums[i + 1] - k)
+        large = max(nums[-1] - k, nums[i] + k)
         diff = min(diff, large - small)
         # print(diff)
     return diff
