@@ -12,7 +12,7 @@ and it will automatically contact the police if two adjacent houses were broken 
 Given an integer array nums representing the amount of money of each house,
 return the maximum amount of money you can rob tonight without alerting the police.
 
- 
+
 
 Example 1:
 
@@ -30,7 +30,7 @@ Example 3:
 
 Input: nums = [1,2,3]
 Output: 3
- 
+
 
 Constraints:
 
@@ -58,8 +58,8 @@ class Solution(object):
         num2 = nums[1:n]
         # d = dict()
         # dp = [-1 for i in range(n)]
+
         def DFS(num, i, dp):
-            
             if dp[i] != -1:
                 return dp[i]
             if len(num) == 1:
