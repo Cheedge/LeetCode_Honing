@@ -37,6 +37,8 @@ Constraints:
 1 <= nums.length <= 100
 0 <= nums[i] <= 1000
 """
+
+
 class Solution(object):
     def rob(self, nums):
         """
@@ -50,23 +52,26 @@ class Solution(object):
         # choice 2: [1, ... n-1]
         #           1 + DFS([3 ... n-1])
         n = len(nums)
-        if n==1: return nums[0]
-        num1 = nums[0:n-1]
+        if n == 1:
+            return nums[0]
+        num1 = nums[0 : n - 1]
         num2 = nums[1:n]
         # d = dict()
         # dp = [-1 for i in range(n)]
         def DFS(num, i, dp):
+            
             if dp[i] != -1:
                 return dp[i]
-            if len(num)==1:
+            if len(num) == 1:
                 dp[i] = num[0]
                 # return num[0]
-            elif len(num)==2:
+            elif len(num) == 2:
                 dp[i] = max(num[0], num[1])
-            elif len(num)>2:
+            elif len(num) > 2:
                 # print(i, dp)
-                dp[i] = max(DFS(num[2:], i+2, dp)+num[0], DFS(num[1:], i+1, dp))
+                dp[i] = max(DFS(num[2:], i + 2, dp) + num[0], DFS(num[1:], i + 1, dp))
             return dp[i]
+
         dp = [-1 for i in range(n)]
         m1 = DFS(num1, 0, dp)
         dp = [-1 for i in range(n)]
