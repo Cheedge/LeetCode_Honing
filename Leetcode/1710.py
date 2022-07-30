@@ -12,7 +12,7 @@ You can choose any boxes to put on the truck as long as the number of boxes does
 
 Return the maximum total number of units that can be put on the truck.
 
- 
+
 
 Example 1:
 
@@ -28,7 +28,7 @@ Example 2:
 
 Input: boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10
 Output: 91
- 
+
 
 Constraints:
 
@@ -36,6 +36,11 @@ Constraints:
 1 <= numberOfBoxesi, numberOfUnitsPerBoxi <= 1000
 1 <= truckSize <= 106
 """
+
+
+from typing import List
+
+
 def maximumUnits(boxTypes, truckSize):
     """
     :type boxTypes: List[List[int]]
@@ -45,7 +50,7 @@ def maximumUnits(boxTypes, truckSize):
     boxTypes.sort(key=lambda x: -x[1])
     tot, res = 0, 0
     for num, unit in boxTypes:
-        while num>0:
+        while num > 0:
             # print(num, tot, res)
             if tot < truckSize:
                 tot += 1
@@ -53,18 +58,17 @@ def maximumUnits(boxTypes, truckSize):
                 num -= 1
             else:
                 break
-        if tot>truckSize:
+        if tot > truckSize:
             break
     return res
 
-from typing import List
 
 def maximumUnits_Greedy(boxTypes: List[List[int]], truckSize: int) -> int:
     boxTypes.sort(key=lambda x: -x[1])
-    tot_n, tot_u = 0, 0
+    tot_u = 0
     for n, u in boxTypes:
         tot_u += min(truckSize, n) * u
         truckSize -= n
-        if truckSize<0:
+        if truckSize < 0:
             break
     return tot_u
