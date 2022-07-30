@@ -44,14 +44,14 @@ class Solution:
         row = [[matrix[i][j] for j in range(n)] for i in range(m)]
         for i in range(m):
             for j in range(1, n):
-                row[i][j] = matrix[i][j] + row[i][j-1]
+                row[i][j] = matrix[i][j] + row[i][j - 1]
         res = 0
         for y1 in range(n):
             for y2 in range(y1, n):
                 summ = 0
                 presum = {0: 1}
                 for x in range(m):
-                    summ += row[x][y2] - row[x][y1-1] if y1-1>=0 else row[x][y2]
+                    summ += row[x][y2] - row[x][y1 - 1] if y1 - 1 >= 0 else row[x][y2]
                     """
                     below code deal with situation:
                     row:
@@ -64,7 +64,7 @@ class Solution:
                     but 1+3==4
                     """
                     if summ - target in presum:
-                        res += presum[summ-target]
+                        res += presum[summ - target]
                     # res += presum.get(summ-target, 0)
                     presum[summ] = presum.get(summ, 0) + 1
         return res
