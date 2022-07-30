@@ -10,7 +10,7 @@ SeatManager(int n) Initializes a SeatManager object that will manage n seats num
 All seats are initially available.
 int reserve() Fetches the smallest-numbered unreserved seat, reserves it, and returns its number.
 void unreserve(int seatNumber) Unreserves the seat with the given seatNumber.
- 
+
 
 Example 1:
 
@@ -30,7 +30,7 @@ seatManager.reserve();    // The available seats are [3,4,5], so return the lowe
 seatManager.reserve();    // The available seats are [4,5], so return the lowest of them, which is 4.
 seatManager.reserve();    // The only available seat is seat 5, so return 5.
 seatManager.unreserve(5); // Unreserve seat 5, so now the available seats are [5].
- 
+
 
 Constraints:
 
@@ -44,18 +44,17 @@ import bisect
 
 
 class SeatManager(object):
-
     def __init__(self, n):
         """
         :type n: int
         """
-        self.avail = [i for i in range(1, n+1)]
+        self.avail = [i for i in range(1, n + 1)]
 
     def reserve(self):
         """
         :rtype: int
         """
-        if len(self.avail)>0:
+        if len(self.avail) > 0:
             return self.avail.pop(0)
         else:
             return None
