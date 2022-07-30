@@ -43,18 +43,18 @@ from typing import List
 def maxResult(nums: List[int], k: int) -> int:
     # Method 1: recursion(TLE)
     # dp[i]: maximum score in nums[i:]
-#         n = len(nums)
-#         dp = [-1 for i in range(n)]
-    
-#         def recursion(i):
-#             if i==n-1:
-#                 dp[i] = nums[i]
-#                 return dp[i]
-#             if dp[i]!=-1: return dp[i]
-#             dp[i] = max(recursion(i+j)+nums[i] for j in range(1, k+1) if i+j<n)
-#             return dp[i]
-    
-#         return recursion(0)
+    #         n = len(nums)
+    #         dp = [-1 for i in range(n)]
+
+    #         def recursion(i):
+    #             if i==n-1:
+    #                 dp[i] = nums[i]
+    #                 return dp[i]
+    #             if dp[i]!=-1: return dp[i]
+    #             dp[i] = max(recursion(i+j)+nums[i] for j in range(1, k+1) if i+j<n)
+    #             return dp[i]
+
+    #         return recursion(0)
 
     # # Method 2: tabular(TLE)
     # # dp[i]: maximum scores to reach nums[i]
@@ -66,10 +66,10 @@ def maxResult(nums: List[int], k: int) -> int:
     #         if i>=j:
     #             dp[i] = max(dp[i-j]+nums[i], dp[i])
     # return dp[n-1]
-    
+
     # Method 3: tabular + heapq
     n = len(nums)
-    dp = [-float('inf') for i in range(n)]
+    dp = [-float("inf") for i in range(n)]
     # (0, -k): let i-h[0][1]>k at first time when i=0
     # every time heapq will push (-dp[i], i) into heap
     # will pop the smallest(-dp: largest dp) out
@@ -77,7 +77,8 @@ def maxResult(nums: List[int], k: int) -> int:
     h = [(0, -k)]
     dp[0] = nums[0]
     for i in range(n):
-        while i-h[0][1]>k: heappop(h)
-        dp[i] = max(-h[0][0]+nums[i], dp[i])
+        while i - h[0][1] > k:
+            heappop(h)
+        dp[i] = max(-h[0][0] + nums[i], dp[i])
         heappush(h, (-dp[i], i))
-    return dp[n-1]
+    return dp[n - 1]
