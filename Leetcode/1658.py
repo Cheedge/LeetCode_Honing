@@ -6,10 +6,10 @@ You are given an integer array nums and an integer x. In one operation,
 you can either remove the leftmost or the rightmost element from the array
  nums and subtract its value from x. Note that this modifies the array for future operations.
 
-Return the minimum number of operations to reduce x to exactly 0 if it is possible, 
+Return the minimum number of operations to reduce x to exactly 0 if it is possible,
 otherwise, return -1.
 
- 
+
 
 Example 1:
 
@@ -26,7 +26,7 @@ Input: nums = [3,2,20,1,1,3], x = 10
 Output: 5
 Explanation: The optimal solution is to remove the last three elements and
              the first two elements (5 operations in total) to reduce x to zero.
- 
+
 
 Constraints:
 
@@ -38,15 +38,17 @@ from typing import List
 
 import pytest
 
+
 # O(N**2)
 def minOperations(nums: List[int], x: int) -> int:
-    if sum(nums) < x: return -1
+    if sum(nums) < x:
+        return -1
     target = sum(nums) - x
     bp, fp = 0, 0
     n = len(nums)
     rec = set()
     while fp < n:
-        summ = sum(nums[bp:fp+1])
+        summ = sum(nums[bp : fp + 1])
         if summ == target:
             rec.add(fp - bp + 1)
             bp += 1
@@ -62,8 +64,10 @@ def minOperations(nums: List[int], x: int) -> int:
     else:
         return -1
 
+
 def minOperations1(nums: List[int], x: int) -> int:
-    if sum(nums) < x: return -1
+    if sum(nums) < x:
+        return -1
     target = sum(nums) - x
     bp, fp = 0, 0
     n = len(nums)
@@ -93,17 +97,19 @@ def minOperations1(nums: List[int], x: int) -> int:
 test_data = [
     ([1], 1, 1),
     ([1], 2, -1),
-    ([1,1,4,2,3], 5, 2),
-    ([5,6,7,8,9], 4, -1),
-    ([3,2,20,1,1,3], 10, 5),
+    ([1, 1, 4, 2, 3], 5, 2),
+    ([5, 6, 7, 8, 9], 4, -1),
+    ([3, 2, 20, 1, 1, 3], 10, 5),
 ]
 
+
 @pytest.mark.parametrize("nums, x, expect", test_data)
-def test_minOperations(nums: List[int], x: int, expect: int)->None:
+def test_minOperations(nums: List[int], x: int, expect: int) -> None:
     res = minOperations(nums, x)
     assert res == expect
 
+
 @pytest.mark.parametrize("nums, x, expect", test_data)
-def test_minOperations1(nums: List[int], x: int, expect: int)->None:
+def test_minOperations1(nums: List[int], x: int, expect: int) -> None:
     res = minOperations1(nums, x)
     assert res == expect
