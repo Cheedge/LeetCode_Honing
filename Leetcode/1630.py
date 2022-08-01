@@ -22,7 +22,7 @@ Return a list of boolean elements answer, where answer[i] is true if the subarra
 nums[l[i]], nums[l[i]+1], ... , nums[r[i]] can be rearranged to form an arithmetic sequence,
 and false otherwise.
 
- 
+
 
 Example 1:
 
@@ -38,7 +38,7 @@ Example 2:
 
 Input: nums = [-12,-9,-3,-12,-6,15,20,-25,-20,-15,-10], l = [0,1,6,4,8,7], r = [4,4,9,7,9,10]
 Output: [false,true,false,false,true,true]
- 
+
 
 Constraints:
 
@@ -50,8 +50,10 @@ m == r.length
 0 <= l[i] < r[i] < n
 -105 <= nums[i] <= 105
 """
+
+
 class Solution(object):
-    def checkArithmeticSubarrays(self, nums, l, r):
+    def checkArithmeticSubarrays(self, nums, left, right):
         """
         :type nums: List[int]
         :type l: List[int]
@@ -59,22 +61,22 @@ class Solution(object):
         :rtype: List[bool]
         """
         res = list()
-        for li, ri in zip(l, r):
-            if self.arithmetic(nums[li:ri+1]):
+        for li, ri in zip(left, right):
+            if self.arithmetic(nums[li : ri + 1]):
                 res.append(True)
             else:
                 res.append(False)
         return res
-    
-    
+
     def arithmetic(self, arr):
-        # 0 <= l[i] < r[i] < n so at least n is 2
+        # 0 <= left[i] < right[i] < n so at least n is 2
         n = len(arr)
         # if n==1: return True
         arr.sort()
         diff = arr[1] - arr[0]
-        if n == 2: return True
+        if n == 2:
+            return True
         for i in range(2, n):
-            if arr[i] - arr[i-1] != diff:
+            if arr[i] - arr[i - 1] != diff:
                 return False
         return True
