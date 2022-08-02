@@ -15,7 +15,7 @@ Each element must have the same probability of being returned.
 You must implement the functions of the class such that
 each function works in average O(1) time complexity.
 
- 
+
 
 Example 1:
 
@@ -34,7 +34,7 @@ randomizedSet.getRandom(); // getRandom() should return either 1 or 2 randomly.
 randomizedSet.remove(1); // Removes 1 from the set, returns true. Set now contains [2].
 randomizedSet.insert(2); // 2 was already in the set, so return false.
 randomizedSet.getRandom(); // Since 2 is the only number in the set, getRandom() will always return 2.
- 
+
 
 Constraints:
 
@@ -46,7 +46,6 @@ import random
 
 
 class RandomizedSet(object):
-
     def __init__(self):
         self.rset = set()
         self.d = dict()
@@ -80,7 +79,7 @@ class RandomizedSet(object):
         :rtype: int
         """
         n = len(self.rset)
-        r = random.randint(0,n-1)
+        r = random.randint(0, n - 1)
         return list(self.d.keys())[r]
 
 
@@ -91,9 +90,7 @@ class RandomizedSet(object):
 # param_3 = obj.getRandom()
 
 
-import random
 class RandomizedSet1:
-
     def __init__(self):
         self.randlist = list()
         self.randset = dict()
@@ -101,7 +98,7 @@ class RandomizedSet1:
     def insert(self, val: int) -> bool:
         if val not in self.randset:
             self.randlist.append(val)
-            self.randset.setdefault(val, len(self.randlist)-1)
+            self.randset.setdefault(val, len(self.randlist) - 1)
             return True
         else:
             return False
@@ -110,8 +107,11 @@ class RandomizedSet1:
         if val in self.randset:
             ind = self.randset[val]
             last_val = self.randlist[-1]
-            self.randlist[-1], self.randlist[ind] = self.randlist[ind], self.randlist[-1]
-            self.randset.update({last_val: ind})            
+            self.randlist[-1], self.randlist[ind] = (
+                self.randlist[ind],
+                self.randlist[-1],
+            )
+            self.randset.update({last_val: ind})
             self.randlist.pop()
             self.randset.pop(val)
             return True
