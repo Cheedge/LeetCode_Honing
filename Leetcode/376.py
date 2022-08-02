@@ -17,7 +17,6 @@ leaving the remaining elements in their original order.
 
 Given an integer array nums, return the length of the longest wiggle subsequence of nums.
 
- 
 
 Example 1:
 
@@ -34,17 +33,18 @@ Example 3:
 
 Input: nums = [1,2,3,4,5,6,7,8,9]
 Output: 2
- 
+
 
 Constraints:
 
 1 <= nums.length <= 1000
 0 <= nums[i] <= 1000
- 
+
 
 Follow up: Could you solve this in O(n) time?
 """
 from typing import List
+
 
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
@@ -52,30 +52,25 @@ class Solution:
         # down[i]: before nums[i], the largest subsequence number end up with nums[k]>nums[i]
         n = len(nums)
         # n<2 not n<=2, to avoid situation as: [1,1]->1 not 2
-        if n<2: return n
+        if n < 2:
+            return n
         up, down = [0 for i in range(n)], [0 for i in range(n)]
         for i in range(1, n):
             for j in range(i):
                 # nums[after]>nums[prev]: up; nums[after]<nums[prev]: down
-                if nums[j]>nums[i]:
-                    up[i] = max(up[i], down[j]+1)
-                elif nums[j]<nums[i]:
-                    down[i] = max(down[i], up[j]+1)
+                if nums[j] > nums[i]:
+                    up[i] = max(up[i], down[j] + 1)
+                elif nums[j] < nums[i]:
+                    down[i] = max(down[i], up[j] + 1)
         # up/down means before num[i] the largest subsequence, so add 1
-        return max(up[n-1], down[n-1])+1
-        
-        
-        
+        return max(up[n - 1], down[n - 1]) + 1
 
 
-        
-        
-        
 """Brute Force(LTE)
     def wiggleMaxLength(self, nums: List[int]) -> int:
         if len(nums)<2: return len(nums)
         return max(self.find_next_up_down(nums, 0, True), self.find_next_up_down(nums, 0, False))+1
-    
+
     # Brute Force: 1st is up/down then find the next down/up. no matter what nums[0] is, it can always begin from 0.
     # every find_next_up_down use for loop to find the next nums[i+k] which is larger/smaller than nums[i].
     # And return the maximum length
