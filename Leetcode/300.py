@@ -55,29 +55,29 @@ def lengthOfLIS_TLE(nums: List[int]) -> int:
     return recursion(0, -float("inf"))
 
 
-def lengthOfLIS(nums: List[int]) -> int:
-    n = len(nums)
-    # recursion return the longest length of the increasing substring of nums[i:]
-    # and the nums[i] must >= prev
-    # dp[i]: longest length of increasing subsequence of nums[i:]
-    dp = [-1 for i in range(n + 1)]
+# def lengthOfLIS(nums: List[int]) -> int:
+#     n = len(nums)
+#     # recursion return the longest length of the increasing substring of nums[i:]
+#     # and the nums[i] must >= prev
+#     # dp[i]: longest length of increasing subsequence of nums[i:]
+#     dp = [-1 for i in range(n + 1)]
 
-    def recursion(id, prev_id, dp):
-        if id >= n + 1:
-            return 0
-        if dp[id] != -1:
-            return dp[id]
-        if nums[id - 1] > nums[prev_id]:
-            dp[id] = max(
-                1 + recursion(id + 1, nums[id - 1], dp),
-                recursion(id + 1, nums[prev_id], dp),
-            )
-        else:
-            dp[id] = max(0, recursion(id + 1, nums[prev_id], dp))
-        print(dp)
-        return dp[id]
+#     def recursion(id, prev_id, dp):
+#         if id >= n + 1:
+#             return 0
+#         if dp[id] != -1:
+#             return dp[id]
+#         if nums[id - 1] > nums[prev_id]:
+#             dp[id] = max(
+#                 1 + recursion(id + 1, nums[id - 1], dp),
+#                 recursion(id + 1, nums[prev_id], dp),
+#             )
+#         else:
+#             dp[id] = max(0, recursion(id + 1, nums[prev_id], dp))
+#         print(dp)
+#         return dp[id]
 
-    return recursion(0, -float("inf"), dp)
+#     return recursion(0, -200, dp)#-float("inf"), dp)
 
 
 def lengthOfLIS_DP(nums: List[int]) -> int:
@@ -130,6 +130,7 @@ test_case = [
         ],
         5,
     ),
+    ([1, 3, 6, 7, 9, 4, 10, 5, 6], 6),
 ]
 
 
@@ -138,6 +139,11 @@ def test_lengthOfLIS_TLE(nums: List[int], expect: int) -> None:
     assert lengthOfLIS_TLE(nums) == expect
 
 
+# @pytest.mark.parametrize("nums, expect", test_case)
+# def test_lengthOfLIS(nums: List[int], expect: int) -> None:
+#     assert lengthOfLIS(nums) == expect
+
+
 @pytest.mark.parametrize("nums, expect", test_case)
-def test_lengthOfLIS(nums: List[int], expect: int) -> None:
-    assert lengthOfLIS(nums) == expect
+def test_lengthOfLIS_DP(nums: List[int], expect: int) -> None:
+    assert lengthOfLIS_DP(nums) == expect
