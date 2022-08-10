@@ -9,7 +9,7 @@ which causes all the following ones to be bad.
 You are given an API bool isBadVersion(version) which returns whether version is bad.
 Implement a function to find the first bad version. You should minimize the number of calls to the API.
 
- 
+
 
 Example 1:
 
@@ -24,7 +24,7 @@ Example 2:
 
 Input: n = 1, bad = 1
 Output: 1
- 
+
 
 Constraints:
 
@@ -42,11 +42,11 @@ def firstBadVersion(n):
     :type n: int
     :rtype: int
     """
-    l, r = 0, n-1
-    while l<=r:
-        p = (l+r)//2
+    left, right = 0, n - 1
+    while left <= right:
+        p = (left + right) // 2
         if isBadVersion(p):
-            r = p - 1
+            right = p - 1
         else:
-            l = p + 1
-    return l
+            left = p + 1
+    return left
