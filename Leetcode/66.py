@@ -9,7 +9,6 @@ The large integer does not contain any leading 0's.
 
 Increment the large integer by one and return the resulting array of digits.
 
- 
 
 Example 1:
 
@@ -32,7 +31,7 @@ Output: [1,0]
 Explanation: The array represents the integer 9.
 Incrementing by one gives 9 + 1 = 10.
 Thus, the result should be [1,0].
- 
+
 
 Constraints:
 
@@ -40,6 +39,8 @@ Constraints:
 0 <= digits[i] <= 9
 digits does not contain any leading 0's.
 """
+
+
 def plusOne(digits):
     """
     :type digits: List[int]
@@ -50,7 +51,7 @@ def plusOne(digits):
         digits[-1] += 1
         return digits
     else:
-        if len(digits)>1:
+        if len(digits) > 1:
             res = plusOne(digits[:-1])
             res.append(0)
             return res

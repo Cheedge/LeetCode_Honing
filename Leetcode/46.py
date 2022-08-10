@@ -18,7 +18,7 @@ Example 3:
 
 Input: nums = [1]
 Output: [[1]]
- 
+
 
 Constraints:
 
@@ -26,27 +26,29 @@ Constraints:
 -10 <= nums[i] <= 10
 All the integers of nums are unique.
 """
+
+
 def permute(nums):
     """
     :type nums: List[int]
     :rtype: List[List[int]]
     """
     # 1. repo: dfs(1, [2,3])-> [[1,2,3], [1,3,2]]
-    # 2. recursively find 
+    # 2. recursively find
     # 2.1   [1,2,3]-> 1+[2,3]-> 1, 2 + [3] or 1, 3 + [2]
     #       [1,2,3]-> 2+[1,3]-> 2, 1 + [3] or 2, 3 + [1]
     #       [1,2,3]-> 3+[1,2]-> 3, 1 + [2] or 3, 2 + [1]
 
-            
     # [1,2,3]-> 1 , 2 , 3 branches
     n = len(nums)
     repo = list()
     # -> eg. [[2]], [[3]]
-    if n==1: return [nums]
+    if n == 1:
+        return [nums]
     for i in range(n):
         # -> eg. 1 + [[2,3],[3,2]]
         # -> eg. 2 + [[3]] or 3 + [[2]]
-        for it in permute(nums[:i]+nums[i+1:]):
+        for it in permute(nums[:i] + nums[i + 1 :]):
             # -> eg. [1,2,3] and [1,3,2]
             # -> eg. [2,3] and [3,2]
             tmp = [nums[i]]
