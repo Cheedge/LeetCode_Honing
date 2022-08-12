@@ -37,9 +37,11 @@ All Node.val are unique.
 p != q
 p and q will exist in the BST.
 """
+# BST: left<root<right. So if use inorder traversal will present the sort order.
+from collections import deque
+
+
 # Definition for a binary tree node.
-
-
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -64,3 +66,20 @@ class Solution:
             else:
                 return root
         return root
+
+    def lowestCommonAncestor2(self, root, p, q):
+        # BFS
+        dq = deque()
+        dq.append(root)
+        if p.val > q.val:
+            large, small = p.val, q.val
+        else:
+            large, small = q.val, p.val
+        while dq:
+            node = dq.popleft()
+            if small <= node.val <= large:
+                return node
+            if node.left:
+                dq.append(node.left)
+            if node.right:
+                dq.append(node.right)
