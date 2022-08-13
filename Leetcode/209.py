@@ -6,7 +6,7 @@ Given an array of positive integers nums and a positive integer target,
 return the minimal length of a contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr]
 of which the sum is greater than or equal to target. If there is no such subarray, return 0 instead.
 
- 
+
 
 Example 1:
 
@@ -21,7 +21,7 @@ Example 3:
 
 Input: target = 11, nums = [1,1,1,1,1,1,1,1]
 Output: 0
- 
+
 
 Constraints:
 
@@ -29,6 +29,8 @@ Constraints:
 1 <= nums.length <= 105
 1 <= nums[i] <= 104
 """
+
+
 def minSubArrayLen(target, nums):
     """
     :type target: int
@@ -38,16 +40,16 @@ def minSubArrayLen(target, nums):
     sp, fp = 0, 0
     n = len(nums)
     res = nums[0]
-    ans = float('inf')
+    ans = float("inf")
     while fp < n:
         if res >= target:
-            ans = min(ans, fp-sp+1)
+            ans = min(ans, fp - sp + 1)
             res -= nums[sp]
             sp += 1
         elif res < target:
             fp += 1
-            if fp<n:
+            if fp < n:
                 res += nums[fp]
-    if ans == float('inf'):
+    if ans == float("inf"):
         return 0
     return ans
