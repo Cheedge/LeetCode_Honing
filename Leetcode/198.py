@@ -2,15 +2,15 @@
 198. House Robber
 Medium(213)
 
-You are a professional robber planning to rob houses along a street. 
-Each house has a certain amount of money stashed, the only constraint stopping you 
-from robbing each of them is that adjacent houses have security systems connected 
+You are a professional robber planning to rob houses along a street.
+Each house has a certain amount of money stashed, the only constraint stopping you
+from robbing each of them is that adjacent houses have security systems connected
 and it will automatically contact the police if two adjacent houses were broken into on the same night.
 
-Given an integer array nums representing the amount of money of each house, 
+Given an integer array nums representing the amount of money of each house,
 return the maximum amount of money you can rob tonight without alerting the police.
 
- 
+
 
 Example 1:
 
@@ -24,7 +24,7 @@ Input: nums = [2,7,9,3,1]
 Output: 12
 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
 Total amount you can rob = 2 + 9 + 1 = 12.
- 
+
 
 Constraints:
 
@@ -50,11 +50,13 @@ def rob(nums):
     # else:
     #     return nums[-1]
     # return res
-    if len(nums) == 1: return nums[0]#case nums=[0]
+    if len(nums) == 1:
+        return nums[0]  # case nums=[0]
     d = {str(nums[-1:]): nums[-1], str(nums[-2:]): max(nums[-2], nums[-1])}
+
     def rob_helper(nums, d):
         n = len(nums)
-        if n-2>0:
+        if n - 2 > 0:
             if str(nums) not in d:
                 res = max(nums[0] + rob_helper(nums[2:], d), rob_helper(nums[1:], d))
                 d.update({str(nums): res})
@@ -66,24 +68,28 @@ def rob(nums):
             return max(nums[-1], nums[-2])
         else:
             return nums[-1]
+
     return rob_helper(nums, d)
+
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
         n = len(nums)
-        if n==1: return nums[0]
+        if n == 1:
+            return nums[0]
         dp = [-1 for i in range(n)]
+
         def DFS(num, i, dp):
             if dp[i] != -1:
                 return dp[i]
-            if len(num)==1:
+            if len(num) == 1:
                 dp[i] = num[0]
                 # return num[0]
-            elif len(num)==2:
+            elif len(num) == 2:
                 dp[i] = max(num[0], num[1])
-            elif len(num)>2:
+            elif len(num) > 2:
                 # print(i, dp, num)
-                dp[i] = max(DFS(num[2:], i+2, dp)+num[0], DFS(num[1:], i+1, dp))
+                dp[i] = max(DFS(num[2:], i + 2, dp) + num[0], DFS(num[1:], i + 1, dp))
             return dp[i]
-        
+
         return DFS(nums, 0, dp)
