@@ -28,6 +28,7 @@ The number of nodes in the tree is in the range [0, 100].
 
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
+from typing import List
 
 
 # Definition for a binary tree node.
@@ -54,3 +55,19 @@ class Solution(object):
         self.visited.append(root.val)
         self.inorderTraversal(root.right)
         return self.visited
+
+    def inorderTraversal1(self, root: TreeNode) -> List[int]:
+        # iteratively
+        if not root:
+            return []
+        ans = list()
+        node = root
+        stack: List[TreeNode] = list()
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            ans.append(node.val)
+            node = node.right
+        return ans
