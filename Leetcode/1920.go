@@ -41,6 +41,8 @@ package main
 
 import (
 	"fmt"
+	"reflect"
+	"testing"
 )
 
 func buildArray(nums []int) []int {
@@ -59,18 +61,21 @@ func main() {
 }
 
 // arg1 means argument 1 and arg2 means argument 2, and the expected stands for the 'result we expect'
-type addTest struct {
+type testCase struct {
 	arg, expected []int
 }
 
-var testCases = []addTest{
+var cases = []testCase{
 	{[]int{5, 0, 1, 2, 3, 4}, []int{4, 5, 0, 1, 2, 3}},
+	{[]int{0, 2, 1, 5, 3, 4}, []int{0, 1, 2, 4, 5, 3}},
 }
 
-// func TestbuildArray(t *testing.T) {
-// 	for _, test := range testCases {
-// 		if res := buildArray(test.arg); res != test.expected {
-// 			t.Errorf("res %q not same as expected %q", res, test.expected)
-// 		}
-// 	}
-// }
+func TestbuildArray(t *testing.T) {
+	for _, test := range cases {
+		res := buildArray(test.arg)
+		// if res != test.expected {
+		if reflect.DeepEqual(res, test.expected) {
+			t.Errorf("res %q not same as expected %q", res, test.expected)
+		}
+	}
+}
