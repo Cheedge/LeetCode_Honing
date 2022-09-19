@@ -1,9 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
+import "strings"
 
 func findDuplicate(paths []string) [][]string {
 	d := make(map[string][]string)
