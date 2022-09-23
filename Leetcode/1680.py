@@ -50,6 +50,11 @@ class Solution:
 
     def concatenatedBinary(self, n):
         ans, M = 0, 10**9 + 7
+        # 5:    101 = 1*2^2 + 0*2^1 + 1*2^0
+        # 54:   101,100
+        #       (101)*2^3-> 1*2^(2+3) + 0*2^(1+3) + 1*2^(0+3)
+        #       pow(2, k) <=> 1<<k
+        #       Therefore, k is the length of binary number
         for x in range(n):
             ans = (ans * (1 << (len(bin(x + 1)) - 2)) + x + 1) % M
         return ans
