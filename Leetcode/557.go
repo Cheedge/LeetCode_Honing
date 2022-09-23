@@ -1,10 +1,8 @@
 package main
 
-import (
-	"fmt"
-	"reflect"
-	"strings"
-)
+import "fmt"
+import "reflect"
+import "strings"
 
 func reverseWords(s string) string {
 	list := strings.Split(s, " ")
