@@ -59,7 +59,7 @@ At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and i
 # deQue: pop from the front
 # or directly use deque
 
-            (4)
+            (3)
         ┌────────┐
         │    d   │
      (0)│a      c│(2)
@@ -69,9 +69,13 @@ At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and i
 ==>
         a       b         c       d
     ──────── ──────── ──────── ────────
-        (1)     (2)      (3)     (4)
+        (0)     (1)      (2)     (3)
+
+    head: (0)
+    tail: (3)
+
 deQue():
-            (4)
+            (3)
         ┌────────┐
         │    d   │
      (0)│       c│(2)
@@ -81,20 +85,26 @@ deQue():
 
                 b         c       d
     ──────── ──────── ──────── ────────
-        (1)     (2)      (3)     (4)
+        (0)     (1)      (2)     (3)
+
+    head: (1)
+    tail: (3)
 
 enQue(e)
-            (4)
+            (3)
         ┌────────┐
         │    d   │
-     (0)│e      c│(2)
+     (4)│e      c│(2)
         │    b   │
         └────────┘
             (1)
 
         e       b         c       d
     ──────── ──────── ──────── ────────
-        (1)     (2)      (3)     (4)
+        (4)     (1)      (2)     (3)
+
+    head: (1)
+    tail: (4)=>(0)
 """
 
 
