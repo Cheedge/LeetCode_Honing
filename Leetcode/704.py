@@ -1,11 +1,12 @@
 """
 704. Binary Search
 
-Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+Given an array of integers nums which is sorted in ascending order, and an integer target,
+write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
 
 You must write an algorithm with O(log n) runtime complexity.
 
- 
+
 
 Example 1:
 
@@ -17,7 +18,7 @@ Example 2:
 Input: nums = [-1,0,3,5,9,12], target = 2
 Output: -1
 Explanation: 2 does not exist in nums so return -1
- 
+
 
 Constraints:
 
@@ -26,22 +27,26 @@ Constraints:
 All the integers in nums are unique.
 nums is sorted in ascending order.
 """
-import pytest
 from typing import List
 
-def search(num: List[int], target: int)->int:
+import pytest
+
+
+def search(num: List[int], target: int) -> int:
     if target in num:
         return num.index(target)
     else:
         return -1
 
+
 test_data = [
-    ([-1,0,3,5,9,12], 9, 4),
+    ([-1, 0, 3, 5, 9, 12], 9, 4),
     ([5], 5, 0),
     ([2, 5], 2, 0),
     ([5], 1, -1),
     ([-1, 0, 5], -1, 0),
 ]
+
 
 @pytest.mark.parametrize("num, target, idx", test_data)
 def test_search(num, target, idx):
