@@ -1,9 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-)
+import "fmt"
+import "sort"
 
 /*
 977. Squares of a Sorted Array
