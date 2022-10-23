@@ -44,12 +44,49 @@ from math import inf
 
 
 class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        lp, rp = 0, 0
+        ns, real_len = len(s), len(t)
+        if s == t:
+            return s
+        minlen = inf
+        res = ""
+        tcnt = Counter(t)
+        while lp < ns:
+            if real_len == 0:
+                if rp - lp < minlen:
+                    minlen = rp - lp
+                    res = s[lp:rp]
+            if s[lp] in tcnt:
+                while rp < ns:
+                    if real_len == 0:
+                        if rp - lp < minlen:
+                            minlen = rp - lp
+                            res = s[lp:rp]
+                        break
+                    if tcnt[s[rp]] > 0:
+                        real_len -= 1
+                    if s[rp] in tcnt:
+                        tcnt[s[rp]] -= 1
+                    rp += 1
+                    if real_len == 0:
+                        if rp - lp < minlen:
+                            minlen = rp - lp
+                            res = s[lp:rp]
+                # print(lp,rp,real_len,tcnt)
+                tcnt[s[lp]] += 1
+                if tcnt[s[lp]] > 0:
+                    real_len += 1
+            lp += 1
+
+        return res
+
     def minWindow2(self, s: str, t: str) -> str:
         lp, rp, ns = 0, 0, len(s)
         minlen = inf
         res = ""
         cnt = Counter(t)
-        while lp<ns:
+        while lp < ns:
             tcnt = cnt.copy()
             if s[lp] in tcnt:
                 if tcnt[s[lp]] <= 1:
@@ -57,7 +94,7 @@ class Solution:
                 else:
                     tcnt[s[lp]] -= 1
                 rp = lp + 1
-                while tcnt != {} and rp<ns:
+                while tcnt != {} and rp < ns:
                     # rp += 1
                     if s[rp] in tcnt:
                         if tcnt[s[rp]] <= 1:
@@ -66,20 +103,20 @@ class Solution:
                             tcnt[s[rp]] -= 1
                     rp += 1
                 if tcnt == {}:
-                    print(lp, rp)
+                    # print(lp, rp)
                     if rp - lp < minlen:
                         minlen = rp - lp
                         res = s[lp:rp]
             lp += 1
         return res
-    
+
     # TLE
     def minWindow1(self, s: str, t: str) -> str:
         lp, rp, ns = 0, 0, len(s)
         minlen = inf
         res = ""
         cnt = Counter(t)
-        while lp<ns:
+        while lp < ns:
             tcnt = cnt.copy()
             if s[lp] in tcnt:
                 if tcnt[s[lp]] <= 1:
@@ -89,9 +126,9 @@ class Solution:
                 if tcnt == {}:
                     if rp - lp < minlen:
                         minlen = rp - lp
-                        res = s[lp:rp+1]
+                        res = s[lp : rp + 1]
                 rp = lp + 1
-                while rp<ns:
+                while rp < ns:
                     if s[rp] in tcnt:
                         if tcnt[s[rp]] <= 1:
                             tcnt.pop(s[rp])
@@ -100,7 +137,7 @@ class Solution:
                     if tcnt == {}:
                         if rp - lp < minlen:
                             minlen = rp - lp
-                            res = s[lp:rp+1]
+                            res = s[lp : rp + 1]
                         break
                     rp += 1
             lp += 1
