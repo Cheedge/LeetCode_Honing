@@ -8,7 +8,6 @@ Given an array of strings strs, group the anagrams together. You can return the 
 An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
 typically using all the original letters exactly once.
 
- 
 
 Example 1:
 
@@ -22,7 +21,6 @@ Example 3:
 
 Input: strs = ["a"]
 Output: [["a"]]
- 
 
 Constraints:
 
@@ -31,7 +29,7 @@ Constraints:
 strs[i] consists of lowercase English letters.
 """
 from collections import Counter, defaultdict
-from typing import List
+from typing import Dict, List, Tuple
 
 
 def groupAnagrams(strs):
@@ -46,9 +44,12 @@ def groupAnagrams(strs):
         res.append(v)
     return res
 
+
 def groupAnagrams_0(strs: List[str]) -> List[List[str]]:
-    dic = dict()
+    dic: Dict[Tuple, List] = dict()
     for i in range(len(strs)):
+        # here tuple or str used because list is unhashable
+        # key = str(sorted(strs[i]))
         key = tuple(sorted(strs[i]))
         if key in dic:
             dic[key].append(strs[i])
@@ -56,4 +57,4 @@ def groupAnagrams_0(strs: List[str]) -> List[List[str]]:
             # dic.update({key:list()})
             # dic[key].append(strs[i])
             dic[key] = [strs[i]]
-    return dic.values()
+    return dic.values()  # type: ignore
