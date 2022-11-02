@@ -61,6 +61,6 @@ class Solution:
                     if changed in seen:
                         continue
                     if changed in bank:
-                        dq.append((changed, steps + 1))
+                        dq.append((changed, steps + 1))  # type: ignore
                         seen.add(changed)
         return -1
